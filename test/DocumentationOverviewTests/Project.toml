@@ -1,0 +1,11 @@
+name = "DocumentationOverviewTests"
+uuid = "55f181ea-0cf7-4857-a33b-81fe70267f9c"
+authors = ["Takafumi Arakaki <aka.tkf@gmail.com> and contributors"]
+version = "0.1.0-DEV"
+
+[deps]
+DocumentationOverview = "fd22d563-a49f-4a45-896b-231dbcd7c5a0"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+julia = "1.6"
