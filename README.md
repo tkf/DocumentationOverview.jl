@@ -1,5 +1,8 @@
 # DocumentationOverview
 
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://tkf.github.io/DocumentationOverview.jl/dev)
+[![CI](https://github.com/tkf/DocumentationOverview.jl/actions/workflows/test.yml/badge.svg)](https://github.com/tkf/DocumentationOverview.jl/actions/workflows/test.yml)
+
 DocumentationOverview.jl generates a table of API overview using Julia's multimedia I/O
 system.
 
@@ -15,3 +18,6 @@ DocumentationOverview.table_md(MyPackage)
 ``````
 
 The code above can also be used in the REPL.
+
+See example outputs and more information in the
+[Documentation](https://tkf.github.io/DocumentationOverview.jl/dev).
