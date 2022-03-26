@@ -23,10 +23,26 @@ Base.fullname(api::API) = (fullname(api.module)..., api.name)
 
 Docs.Binding(api::API) = Docs.Binding(api.module, api.name)
 
-hasdoc(m::Module, b::Docs.Binding) = haskey(Docs.meta(m), b)
+hasdoc(m::Module, b::Docs.Binding) =
+    foldl_modules_rec(nothing, m) do _, m
+        haskey(Docs.meta(m), b) ? Break(nothing) : nothing
+    end isa Break
+
 hasdoc(api::API) = hasdoc(api.module, Docs.Binding(api))
 
-docof(api::API) = hasdoc(api) ? Docs.doc(Docs.Binding(api)) : nothing
+function docof(api::API)
+    binding = Docs.Binding(api)
+    docstrs = foldl_modules_rec(DocStr[], api.module) do docstrs, m
+        multidoc = get(Docs.meta(m), binding, nothing)
+        if multidoc isa MultiDoc
+            for (_, ds) in sort!(collect(multidoc.docs), by = first)
+                push!(docstrs, ds)
+            end
+        end
+        docstrs
+    end
+    return catdoc(mapany(parsedoc, docstrs)...)
+end
 
 function signatureof(api)
     s = getfield(api, :signature)
@@ -193,3 +209,7 @@ function strip_signature_namespace(signature::AbstractString)
         return signature[nextind(signature, j):end]
     end
 end
+
+const PublicAPI_API = typeof(first(PublicAPI.of(PublicAPI)))
+
+DocumentationOverview.API(api::PublicAPI_API) = API(Module(api), nameof(api))

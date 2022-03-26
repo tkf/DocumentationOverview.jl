@@ -1,5 +1,8 @@
 baremodule DocumentationOverview
 
+import PublicAPI
+PublicAPI.@public table table_md find API
+
 """
     DocumentationOverview.table(module::Module; [apicolumn], [include]) -> table
     DocumentationOverview.table(apis; [apicolumn]) -> table
@@ -31,6 +34,16 @@ julia> using DocumentationOverview
 
 julia> DocumentationOverview.table(DocumentationOverview)
 ... a table of API printed ...
+```
+
+The list of APIs retrieved using
+[PublicAPI.jl](https://github.com/JuliaExperiments/PublicAPI.jl) API can also be used with
+`DocumentationOverview.table`:
+
+```julia
+julia> using DocumentationOverview, PublicAPI
+
+julia> table = DocumentationOverview.table(PublicAPI.of(DocumentationOverview));
 ```
 """
 function table end
@@ -90,11 +103,15 @@ abstract type API end
 
 module Internal
 
+using Base.Docs: DocStr, MultiDoc, catdoc, mapany, parsedoc
+
 import Markdown
+import PublicAPI
 using Accessors: @set
 
 using ..DocumentationOverview: DocumentationOverview
 
+include("foldl.jl")
 include("pkgapi.jl")
 include("find.jl")
 include("table.jl")
