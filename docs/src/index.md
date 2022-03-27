@@ -35,7 +35,9 @@ DocumentationOverview.table_md(
 
 ```@docs
 DocumentationOverview.table
+DocumentationOverview.list
 DocumentationOverview.table_md
+DocumentationOverview.list_md
 DocumentationOverview.find
 DocumentationOverview.API
 ```

@@ -4,7 +4,7 @@
 CurrentModule = DocumentationOverview
 ```
 
-## Default
+## Table
 
 Code:
 
@@ -22,7 +22,7 @@ using DocumentationOverview
 DocumentationOverview.table_md(DocumentationOverview)
 ```
 
-## `signature = :strip_namespace`
+## Table with `signature = :strip_namespace`
 
 Code:
 
@@ -46,7 +46,7 @@ DocumentationOverview.table_md(
 )
 ```
 
-## `signature = :name`
+## Table with `signature = :name`
 
 Code:
 
@@ -67,5 +67,27 @@ using DocumentationOverview
 DocumentationOverview.table_md(
     DocumentationOverview;
     signature = :name,
+)
+```
+
+## List
+
+Code:
+
+``````md
+```@eval
+using DocumentationOverview
+DocumentationOverview.list_md(
+    DocumentationOverview;
+)
+```
+``````
+
+Output:
+
+```@eval
+using DocumentationOverview
+DocumentationOverview.list_md(
+    DocumentationOverview;
 )
 ```
