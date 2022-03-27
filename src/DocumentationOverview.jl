@@ -4,8 +4,8 @@ import PublicAPI
 PublicAPI.@public table table_md find API
 
 """
-    DocumentationOverview.table(module::Module; [apicolumn], [include]) -> table
-    DocumentationOverview.table(apis; [apicolumn]) -> table
+    DocumentationOverview.table(module::Module; ...) -> table
+    DocumentationOverview.table(apis; ...) -> table
 
 Show the list of APIs as a table.
 
@@ -26,6 +26,9 @@ See the [Gallery](@ref gallery) for example outputs.
   - `:name`: use `api.name`; i.e., `A.B.C.f(x, y)` becomes `f`.
   - `:strip_namespace`: strip the namespace part; i.e., `A.B.C.f(x, y)` becomes `f(x, y)`.
   - a callabel object: it must map an `API` to a `String` which is used as a signature.
+
+Keyword arguments for [`find`](@ref) can also be passed with the method that takes
+`module::Module` .
 
 ## Examples
 
