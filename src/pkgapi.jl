@@ -15,6 +15,15 @@ function Base.getproperty(api::API, name::Symbol)
         return docof(api)
     elseif name === :signature
         return signatureof(api)
+    elseif name === :value
+        return getproperty(api.module, api.name)
+    elseif name === :maybevalue
+        value = try
+            api.value
+        catch
+            return nothing
+        end
+        return Some(value)
     end
     return getfield(api, name)
 end
