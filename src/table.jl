@@ -12,7 +12,7 @@ function Base.show(io::IO, ::MIME"text/markdown", table::DocTable)
         s = summarize(api)
         print(io, "| ")
         mdlink(io, s)
-        println(io, " | ", something(s.text, nothing), " |")
+        println(io, " | ", something(s.text, ""), " |")
     end
 end
 
