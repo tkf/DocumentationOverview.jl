@@ -2,7 +2,7 @@ using DocumentationOverview
 using Documenter
 
 makedocs(
-    sitename = "Try",
+    sitename = "DocumentationOverview",
     format = Documenter.HTML(),
     modules = [DocumentationOverview],
     strict = [
