@@ -21,3 +21,6 @@ The code above can also be used in the REPL.
 
 See example outputs and more information in the
 [Documentation](https://tkf.github.io/DocumentationOverview.jl/dev).
+
+DocumentationOverview.jl works well with
+[PublicAPI.jl](https://github.com/JuliaExperiments/PublicAPI.jl).
