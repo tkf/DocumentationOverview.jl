@@ -31,12 +31,13 @@ end
 DocumentationOverview.table(m::Module; include = hasdoc, options...) =
     DocumentationOverview.table(
         DocumentationOverview.find(m; include = include);
+        sortby = fullname,
         options...,
     )
 
 function DocumentationOverview.table(
     apis;
-    sortby = string ∘ fullname,
+    sortby = nothing,
     signature = nothing,
     options...,
 )
@@ -46,7 +47,9 @@ function DocumentationOverview.table(
         apis;
         init = API[],
     )
-    sort!(apis; by = sortby)
+    if sortby !== nothing
+        sort!(apis; by = sortby)
+    end
     return DocTable(apis; options...)
 end
 
