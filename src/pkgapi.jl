@@ -148,12 +148,7 @@ function fullname_symbols(ex::Expr)
     return reverse!(vars)
 end
 
-# TODO: support arbitrary signature
-function DocumentationOverview.API(code::AbstractString; namespace = Main)
-    ex = Meta.parse(code)
-    vars = fullname_symbols(ex)
-    vars === nothing && error("unsupported: ", ex)
-    vars = vars::Vector{Symbol}
+function resolvein(vars, namespace)
     mod = namespace
     for (i, v) in pairs(vars[begin:end-1])
         obj = try
@@ -178,7 +173,17 @@ function DocumentationOverview.API(code::AbstractString; namespace = Main)
             )
         end
     end
-    return API(mod, vars[end]; signature = code)
+    return API(mod, vars[end])
+end
+
+# TODO: support arbitrary signature
+function DocumentationOverview.API(code::AbstractString; namespace = Main)
+    ex = Meta.parse(code)
+    vars = fullname_symbols(ex)
+    vars === nothing && error("unsupported: ", ex)
+    vars = vars::Vector{Symbol}
+    api = resolvein(vars, namespace)
+    return @set api.signature = code
 end
 
 signaturesetter(f) = api -> @set api.signature = f(api)

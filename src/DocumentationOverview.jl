@@ -5,6 +5,7 @@ PublicAPI.@public table table_md find API
 
 """
     DocumentationOverview.table(module::Module; ...) -> table
+    DocumentationOverview.table(fullnames::Expr; ...) -> table
     DocumentationOverview.table(apis; ...) -> table
 
 Show the list of APIs as a table.
@@ -18,6 +19,15 @@ it, and pass it to `DocumentationOverview.table` as an iterable of `API`s.
 See the [Gallery](@ref gallery) for example outputs.
 
 # Extended help
+
+# Arguments
+
+The first argument specifies the list of APIs to be shown:
+
+* `module::Module`: APIs discovered with `find(module::Module; ...)`
+* `fullnames::Expr`: APIs are specified by the list of expression of form
+  `:[a.b.c, d.e.f, ...]`
+* `apis`: an iterable that produces [`API`](@ref)s
 
 # Keyword Arguments
 - `apicolumn::AbstractString = "**API**"`: The title for the API column.
@@ -39,12 +49,24 @@ julia> DocumentationOverview.table(DocumentationOverview)
 ... a table of API printed ...
 ```
 
+`DocumentationOverview.table` also takes an expression (notice `:` before `[`) to manually
+list the APIs:
+
+```julia
+julia> using DocumentationOverview
+
+julia> table = DocumentationOverview.table(:[  # ⇐ notice the `:` here
+           DocumentationOverview.table,
+           DocumentationOverview.API,
+       ]);
+```
+
 The list of APIs retrieved using
 [PublicAPI.jl](https://github.com/JuliaExperiments/PublicAPI.jl) API can also be used with
 `DocumentationOverview.table`:
 
 ```julia
-julia> using DocumentationOverview, PublicAPI
+julia> using PublicAPI
 
 julia> table = DocumentationOverview.table(PublicAPI.of(DocumentationOverview));
 ```
