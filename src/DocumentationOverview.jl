@@ -8,13 +8,14 @@ PublicAPI.@public table table_md find API
     DocumentationOverview.table(fullnames::Expr; ...) -> table
     DocumentationOverview.table(apis; ...) -> table
 
-Show the list of APIs as a table.
+Show the table of APIs.
 
 The `table` object returned from this function supports `show` method with `text/plain`,
 `text/markdown`, and `text/html` MIME types.
 
 To preprocess the list of APIs, get a vector of [`API`](@ref)s from [`find`](@ref), process
-it, and pass it to `DocumentationOverview.table` as an iterable of `API`s.
+it, and pass it to `DocumentationOverview.table` as an iterable of `API`s.  See also
+[`list`](@ref).
 
 See the [Gallery](@ref gallery) for example outputs.
 
@@ -74,11 +75,88 @@ julia> table = DocumentationOverview.table(PublicAPI.of(DocumentationOverview));
 function table end
 
 """
+    DocumentationOverview.list(module::Module; ...) -> list
+    DocumentationOverview.list(fullnames::Expr; ...) -> list
+    DocumentationOverview.list(apis; ...) -> list
+
+Show the list of APIs.
+
+The `list` object returned from this function supports `show` method with `text/plain`,
+`text/markdown`, and `text/html` MIME types.
+
+To preprocess the list of APIs, get a vector of [`API`](@ref)s from [`find`](@ref), process
+it, and pass it to `DocumentationOverview.list` as an iterable of `API`s.  See also
+[`table`](@ref).
+
+See the [Gallery](@ref gallery) for example outputs.
+
+# Extended help
+
+# Arguments
+
+The first argument specifies the list of APIs to be shown:
+
+* `module::Module`: APIs discovered with `find(module::Module; ...)`
+* `fullnames::Expr`: APIs are specified by the list of expression of form
+  `:[a.b.c, d.e.f, ...]`
+* `apis`: an iterable that produces [`API`](@ref)s
+
+# Keyword Arguments
+- `signature`: following values are supported:
+  - `nothing` (default): use the default signature.
+  - `:name`: use `api.name`; i.e., `A.B.C.f(x, y)` becomes `f`.
+  - `:strip_namespace`: strip the namespace part; i.e., `A.B.C.f(x, y)` becomes `f(x, y)`.
+  - a callabel object: it must map an `API` to a `String` which is used as a signature.
+
+Keyword arguments for [`find`](@ref) can also be passed with the method that takes
+`module::Module` .
+
+## Examples
+
+```JULIA
+julia> using DocumentationOverview
+
+julia> DocumentationOverview.list(DocumentationOverview)
+... a list of API printed ...
+```
+
+`DocumentationOverview.list` also takes an expression (notice `:` before `[`) to manually
+list the APIs:
+
+```julia
+julia> using DocumentationOverview
+
+julia> list = DocumentationOverview.list(:[  # ⇐ notice the `:` here
+           DocumentationOverview.list,
+           DocumentationOverview.API,
+       ]);
+```
+
+The list of APIs retrieved using
+[PublicAPI.jl](https://github.com/JuliaExperiments/PublicAPI.jl) API can also be used with
+`DocumentationOverview.list`:
+
+```julia
+julia> using PublicAPI
+
+julia> list = DocumentationOverview.list(PublicAPI.of(DocumentationOverview));
+```
+"""
+function list end
+
+"""
     DocumentationOverview.table_md(args...; options...) -> md::Markdown.MD
 
 A shorthand for `Markdown.MD(DocumentationOverview.table(args...; options...))`.
 """
 function table_md end
+
+"""
+    DocumentationOverview.list_md(args...; options...) -> md::Markdown.MD
+
+A shorthand for `Markdown.MD(DocumentationOverview.list(args...; options...))`.
+"""
+function list_md end
 
 """
     DocumentationOverview.find(module::Module; [include]) -> apis::Vector{<:API}
@@ -140,7 +218,9 @@ using ..DocumentationOverview: DocumentationOverview
 include("foldl.jl")
 include("pkgapi.jl")
 include("find.jl")
+include("overview.jl")
 include("table.jl")
+include("list.jl")
 
 end  # module Internal
 
