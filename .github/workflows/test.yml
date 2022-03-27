@@ -45,7 +45,7 @@ jobs:
       - uses: julia-actions/setup-julia@v1
         with:
           version: ${{ matrix.julia-version }}
-      - uses: tkf/julia-aqua@bd818419f21a121ca0a93b52ce857a04b9ba6e6e
+      - uses: tkf/julia-aqua@v1
 
   # A job that succeeds if and only if all jobs in `test` succeed.
   all-success:
