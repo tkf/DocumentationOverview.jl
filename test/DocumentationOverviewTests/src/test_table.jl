@@ -22,6 +22,17 @@ function test_publicapi()
     @test occursin("DocumentationOverview.API", text)
 end
 
+function test_fullnames()
+    table = DocumentationOverview.table(
+        :[table, DocumentationOverview.API, find],
+        namespace = DocumentationOverview,
+    )
+    text = sprint(show, "text/plain", table)
+    @test occursin("DocumentationOverview.table", text)
+    @test occursin("DocumentationOverview.find", text)
+    @test occursin("DocumentationOverview.API", text)
+end
+
 function test_nodoc()
     table = DocumentationOverview.table(
         DocumentationOverview.API.(split("""
