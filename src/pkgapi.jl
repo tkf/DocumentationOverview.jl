@@ -149,7 +149,11 @@ function fullname_symbols(ex::Expr)
 end
 
 # TODO: support arbitrary signature
-function DocumentationOverview.API(code::AbstractString; namespace = Main)
+function DocumentationOverview.API(
+    code::AbstractString;
+    namespace = Main,
+    setsignature::Bool = false,
+)
     ex = Meta.parse(code)
     vars = fullname_symbols(ex)
     vars === nothing && error("unsupported: ", ex)
@@ -178,7 +182,7 @@ function DocumentationOverview.API(code::AbstractString; namespace = Main)
             )
         end
     end
-    return API(mod, vars[end]; signature = code)
+    return API(mod, vars[end]; signature = setsignature ? code : nothing)
 end
 
 signaturesetter(f) = api -> @set api.signature = f(api)
