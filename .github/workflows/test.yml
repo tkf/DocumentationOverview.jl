@@ -31,10 +31,26 @@ jobs:
           flags: Pkg.test
           name: codecov-umbrella
 
+  aqua:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        julia-version:
+          - '1.6'
+          - '1'
+          - 'nightly'
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - uses: julia-actions/setup-julia@v1
+        with:
+          version: ${{ matrix.julia-version }}
+      - uses: tkf/julia-aqua@main
+
   # A job that succeeds if and only if all jobs in `test` succeed.
   all-success:
     if: always() && github.event.pull_request
-    needs: test
+    needs: [test, aqua]
     runs-on: ubuntu-latest
     steps:
       # https://github.com/tkf/merge-conclusions-action
