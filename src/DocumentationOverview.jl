@@ -202,6 +202,9 @@ It also has the following derived properties that are not settable with `Accesso
 
 * `hasdoc::Bool`: indicate if the API has a docstring.
 * `doc::Union{Markdown.MD,Nothing}`: docstring of the API.
+* `api.value`: equivalent to `getproperty(api.module, api.value)`; may throw.
+* `api.maybevalue`: evaluates to `Some(api.value)` if it does not throw or `nothing`
+  otherwise
 """
 abstract type API end
 
