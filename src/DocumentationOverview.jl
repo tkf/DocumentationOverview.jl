@@ -168,7 +168,7 @@ List APIs in `module`.
 # Keyword Arguments
 - `include`: a callable of form `include(api::API) -> should_include::Bool`.  The `api`s
   are included in the output if and only if this function returns `true`.  The default
-  function is eauivalent to `api -> api.hasdoc`.
+  function is equivalent to `api -> api.hasdoc`.
 
 ## Examples
 ```julia
