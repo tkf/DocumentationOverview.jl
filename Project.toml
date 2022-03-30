@@ -1,7 +1,7 @@
 name = "DocumentationOverview"
 uuid = "fd22d563-a49f-4a45-896b-231dbcd7c5a0"
 authors = ["Takafumi Arakaki <aka.tkf@gmail.com> and contributors"]
-version = "0.1.0-DEV"
+version = "0.1.1-DEV"
 
 [deps]
 Accessors = "7d9f7c33-5ae7-4f3b-8dc6-eff91059b697"
