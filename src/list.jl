@@ -19,7 +19,8 @@ end
 
 function DocumentationOverview.list(apis; links = true, options...)
     apis, options = preprocess(apis; options...)
-    return DocList(apis; links, options...)
+    isempty(options) || throw(ArgumentError("list does not support keyword arguements $options"))
+    return DocList(apis, links)
 end
 
 DocumentationOverview.list_md(args...; options...) =
