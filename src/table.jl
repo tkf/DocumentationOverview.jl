@@ -1,9 +1,10 @@
 struct DocTable <: Overview
     apis::Vector{API}
     apicolumn::String
+    links::Bool
 end
 
-DocTable(apis; apicolumn = "**API**") = DocTable(apis, apicolumn)
+DocTable(apis; apicolumn = "**API**", links = true) = DocTable(apis, apicolumn, links)
 
 function Base.show(io::IO, ::MIME"text/markdown", table::DocTable)
     println(io, "| ", table.apicolumn, " | **Summary** |")
@@ -11,7 +12,7 @@ function Base.show(io::IO, ::MIME"text/markdown", table::DocTable)
     for api in table.apis
         s = summarize(api)
         print(io, "| ")
-        mdlink(io, s)
+        table.links ? mdlink(io, s) : print(io, s.signature)
         println(io, " | ", something(s.text, ""), " |")
     end
 end
