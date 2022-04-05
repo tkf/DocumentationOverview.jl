@@ -1,8 +1,5 @@
 baremodule DocumentationOverview
 
-import PublicAPI
-PublicAPI.@public table table_md find API
-
 """
     DocumentationOverview.table(module::Module; ...) -> table
     DocumentationOverview.table(fullnames::Expr; ...) -> table
@@ -228,5 +225,7 @@ include("table.jl")
 include("list.jl")
 
 end  # module Internal
+
+Internal.PublicAPI.@public table table_md find API
 
 end  # baremodule DocumentationOverview
