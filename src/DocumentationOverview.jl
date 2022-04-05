@@ -37,6 +37,7 @@ The first argument specifies the list of APIs to be shown:
   - `:name`: use `api.name`; i.e., `A.B.C.f(x, y)` becomes `f`.
   - `:strip_namespace`: strip the namespace part; i.e., `A.B.C.f(x, y)` becomes `f(x, y)`.
   - a callabel object: it must map an `API` to a `String` which is used as a signature.
+- `links`: A `Bool` (`true` by default) indicating whether or not the signatures will be `@ref` links.
 
 Keyword arguments for [`find`](@ref) can also be passed with the method that takes
 `module::Module` .
@@ -107,6 +108,7 @@ The first argument specifies the list of APIs to be shown:
   - `:name`: use `api.name`; i.e., `A.B.C.f(x, y)` becomes `f`.
   - `:strip_namespace`: strip the namespace part; i.e., `A.B.C.f(x, y)` becomes `f(x, y)`.
   - a callabel object: it must map an `API` to a `String` which is used as a signature.
+- `links`: A `Bool` (`true` by default) indicating whether or not the signatures will be `@ref` links.
 
 Keyword arguments for [`find`](@ref) can also be passed with the method that takes
 `module::Module` .
